@@ -12,12 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Inscription d'un nouvel utilisateur.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function register(Request $request)
     {
         // Validation des données
@@ -41,12 +36,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'User registered successfully'], 201);
     }
 
-    /**
-     * Connexion de l'utilisateur.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function login(Request $request)
     {
         // Validation des identifiants
@@ -60,12 +50,7 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Déconnexion de l'utilisateur.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function logout(Request $request)
     {
         // Révocation du token d'accès de l'utilisateur connecté
