@@ -11,7 +11,13 @@ class Destination extends Model
     use HasFactory;
 
     protected $fillable = [
+        'itinerary_id',
         'nom',
-        'lieuLogement',
+        'lieu_logement',
     ];
+
+    public function itinerary()
+    {
+        return $this->belongsTo(Itinerary::class);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,10 +16,14 @@ class CreateDestinationsTable extends Migration
     {
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('itinerary_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->string('accommodation');
-            $table->text('places_to_visit');
+            $table->unsignedBigInteger('itinerary_id');
+            $table->string('nom');
+            $table->string('lieu_logement');
+            // Ajoutez d'autres colonnes au besoin
+
+            // Clé étrangère pour relier à la table des itinéraires
+            $table->foreign('itinerary_id')->references('id')->on('itineraries')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

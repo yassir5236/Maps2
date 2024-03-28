@@ -73,4 +73,6 @@ class DestinationController extends Controller
 
         return response()->json(['message' => 'Destination deleted successfully'], 200);
     }
+
+    
 }

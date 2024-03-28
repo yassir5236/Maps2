@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Itinerary extends Model
 {
     use HasFactory;
@@ -18,4 +19,14 @@ class Itinerary extends Model
         'duree',
         'image',
     ];
+
+
+
+    public function destinations()
+    {
+        return $this->hasMany(Destination::class);
+    }
+
+
+
 }

@@ -1,5 +1,6 @@
 <?php
-// database/migrations/YYYY_MM_DD_create_visits_table.php
+
+
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,12 +12,13 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->string('lieu');
-            $table->string('activité');
-            $table->string('plat');
-            $table->unsignedBigInteger('destination_id');
-            $table->foreign('destination_id')->references('id')->on('destinations')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id'); // Ajoutez cette ligne pour l'ID de l'utilisateur
+           
+            $table->unsignedBigInteger('itinerary_id');
+            $table->foreign('itinerary_id')->references('id')->on('itineraries')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -25,3 +27,4 @@ class CreateVisitsTable extends Migration
         Schema::dropIfExists('visits');
     }
 }
+

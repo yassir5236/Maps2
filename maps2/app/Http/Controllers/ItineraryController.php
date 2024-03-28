@@ -5,15 +5,31 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Destination;
 
 use Illuminate\Http\Request;
 use App\Models\Itinerary;
 
 class ItineraryController extends Controller
 {
- 
+
+
+    public function index()
+    {
+        $itineraries = Itinerary::all();
+        return response()->json(['itineraries' => $itineraries], 200);
+    }
+
+
+
+
+
+
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -31,12 +47,15 @@ class ItineraryController extends Controller
         $itineraire->categorie = $request->categorie;
         $itineraire->duree = $request->duree;
         $itineraire->image = $request->image;
-        $itineraire->user_id=auth()->user()->id;
+        $itineraire->user_id = auth()->user()->id;
         // Assign other necessary fields here
         $itineraire->save();
 
         return response()->json(['message' => 'Itinéraire créé avec succès'], 201);
     }
+
+
+
 
 
     public function show($id)
@@ -48,7 +67,11 @@ class ItineraryController extends Controller
         return response()->json($itineraire, 200);
     }
 
-  
+
+
+
+
+
     public function update(Request $request, $id)
     {
         // Validation des données
@@ -77,12 +100,12 @@ class ItineraryController extends Controller
         return response()->json($itinerary, 200);
     }
 
-    /**
-     * Remove the specified itinerary from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
+
+
+
+
     public function destroy($id)
     {
         // Recherche de l'itinéraire
@@ -98,5 +121,105 @@ class ItineraryController extends Controller
 
         return response()->json(['message' => 'Itinerary deleted successfully'], 200);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function addDestinations(Request $request, $itineraryId)
+
+    {
+        // Valider les données de la requête
+        $request->validate([
+            'destinations' => 'required|array',
+            'destinations.*.nom' => 'required|string',
+            'destinations.*.lieu_logement' => 'required|string',
+        ]);
+
+        // Récupérer l'itinéraire correspondant
+        $itinerary = Itinerary::findOrFail($itineraryId);
+
+        // Créer et attacher les destinations à l'itinéraire
+        foreach ($request->destinations as $destinationData) {
+            $destination = new Destination([
+                'nom' => $destinationData['nom'],
+                'lieu_logement' => $destinationData['lieu_logement'],
+            ]);
+
+            $itinerary->destinations()->save($destination);
+        }
+
+        return response()->json(['message' => 'Destinations créées avec succès'], 201);
+    }
+
+
+
+
+
+
+
+    public function search(Request $request)
+    {
+        // Récupérer les paramètres de requête
+        $category = $request->query('categorie');
+        $duration = $request->query('duree');
+    
+        // Commencer avec une requête de base pour les itinéraires
+        $query = Itinerary::query();
+    
+        // Filtrer par catégorie si elle est spécifiée
+        if ($category) {
+            $query->where('categorie', $category);
+        }
+    
+        // Filtrer par durée si elle est spécifiée
+        if ($duration) {
+            $query->where('duree', $duration);
+        }
+    
+        // Exécuter la requête
+        $results = $query->get();
+    
+        // Retourner les résultats au format JSON
+        return response()->json($results);
+    }
+    
+
+    public function filtre(Request $request)
+{
+    $query = Itinerary::query();
+
+    // Filtrer par catégorie si le paramètre de requête 'categorie' est présent
+    if ($request->has('categorie')) {
+        $query->where('categorie', $request->categorie);
+    }
+
+    // Filtrer par durée si le paramètre de requête 'duree' est présent
+    if ($request->has('duree')) {
+        $query->where('duree', $request->duree);
+    }
+
+    // Récupérer les itinéraires filtrés
+    $itineraries = $query->get();
+
+    return response()->json(['data' => $itineraries], 200);
 }
 
+    
+    
+
+    
+}
