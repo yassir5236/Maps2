@@ -13,8 +13,47 @@ use App\Models\Destination;
 use Illuminate\Http\Request;
 use App\Models\Itinerary;
 
+
+
+/**
+ * Class ItineraryController
+ * @package App\Http\Controllers
+ *
+ * @OA\Info(
+ *     version="1.0.0",
+ *     title="Titre de votre API",
+ *     description="Description de votre API",
+ *     @OA\Contact(
+ *         email="contact@example.com"
+ *     ),
+ *     @OA\License(
+ *         name="License Name",
+ *         url="http://www.example.com/license"
+ *     )
+ * )
+ */
 class ItineraryController extends Controller
 {
+
+
+
+/**
+ * @OA\Get(
+ *     path="/api/itineraries", 
+ *     tags={"Itineraries"},
+ *     summary="Get all itineraries",
+ *     description="Retrieve a list of all itineraries",
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Itinerary")
+ *         )
+ *     ),
+ *     security={{"bearerAuth":{}}}
+ * )
+ */
 
 
     public function index()
@@ -28,6 +67,37 @@ class ItineraryController extends Controller
 
 
 
+
+
+
+
+
+   /**
+ * Create a new itinerary.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ *
+ * @OA\Post(
+ *     path="/api/itineraries",
+ *     tags={"Itineraries"},
+ *     summary="Create a new itinerary",
+ *     description="Create a new itinerary with the given data",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(ref="#/components/schemas/Itinerary")
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Itinerary created successfully"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation errors",
+ *     ),
+ *     security={{"bearerAuth":{}}}
+ * )
+ */
 
 
     public function store(Request $request)
@@ -58,6 +128,40 @@ class ItineraryController extends Controller
 
 
 
+
+
+
+     /**
+ * Display the specified itinerary.
+ *
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ *
+ * @OA\Get(
+ *     path="/api/itineraries/{id}",
+ *     tags={"Itineraries"},
+ *     summary="Display a specific itinerary",
+ *     description="Display the details of a specific itinerary",
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the itinerary",
+ *         @OA\Schema(
+ *             type="integer"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/Itinerary")
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Itinerary not found",
+ *     ),
+ * )
+ */
     public function show($id)
     {
         $itineraire = Itinerary::find($id);
