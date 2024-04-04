@@ -32,21 +32,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 
+Route::get('/itineraries/search', [ItineraryController::class, 'search']);
 
-
-
-
-// Route::middleware('auth:sanctum')->group(function () {
 Route::get('/itineraries', [ItineraryController::class, 'index']); // Afficher la liste des itinéraires
+
+
+
+Route::middleware('auth:sanctum')->group(function () {
 Route::get('/itineraries/{id}', [ItineraryController::class, 'show']); // Afficher les détails d'un itinéraire spécifique
 Route::post('/itineraires/add', [ItineraryController::class, 'store']); // Créer un nouvel itinéraire
-Route::put('/itineraries/{id}', [ItineraryController::class, 'update']); // Mettre à jour les informations d'un itinéraire
+Route::patch('/itineraries/{id}', [ItineraryController::class, 'update']); // Mettre à jour les informations d'un itinéraire
 Route::delete('/itineraries/{id}', [ItineraryController::class, 'destroy']); // Supprimer un itinéraire
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-// });
+});
 
 
 
@@ -72,8 +73,6 @@ Route::middleware('auth:sanctum')->post('/visits', [VisitsController::class, 'st
 
 
 
-
-Route::get('/itineraries/search', [ItineraryController::class, 'search']);
 
 
 

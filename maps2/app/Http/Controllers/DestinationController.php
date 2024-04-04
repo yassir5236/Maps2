@@ -13,7 +13,6 @@ class DestinationController extends Controller
    
     public function store(Request $request, $itinerary_id)
     {
-        // Validation des données
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'lieu_logement' => 'required|string|max:255',
@@ -24,7 +23,6 @@ class DestinationController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // Création de la destination
         $destination = Destination::create([
             'nom' => $request->nom,
             'lieu_logement' => $request->lieu_logement,
@@ -43,7 +41,6 @@ class DestinationController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validation des données
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'lieu_logement' => 'required|string|max:255',
@@ -53,10 +50,8 @@ class DestinationController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // Recherche de la destination
         $destination = Destination::findOrFail($id);
 
-        // Mise à jour de la destination
         $destination->update($request->all());
 
         return response()->json($destination, 200);
@@ -65,10 +60,8 @@ class DestinationController extends Controller
 
     public function destroy($id)
     {
-        // Recherche de la destination
         $destination = Destination::findOrFail($id);
 
-        // Suppression de la destination
         $destination->delete();
 
         return response()->json(['message' => 'Destination deleted successfully'], 200);

@@ -13,8 +13,8 @@ class CreateUserTest extends TestCase
     public function testCreateNewUser()
     {
         $userData = [
-            'name' => 'khalil', // Mettre à jour le nom de l'utilisateur
-            'email' => 'john150@example.com', // Mettre à jour l'e-mail de l'utilisateur
+            'name' => 'khalil', 
+            'email' => 'john150@example.com', 
             'password' => bcrypt('125helloword'),
         ];
 
@@ -22,7 +22,7 @@ class CreateUserTest extends TestCase
 
         $this->assertNotNull($user);
         $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals('khalil', $user->name); // Mettre à jour le nom attendu
-        $this->assertEquals('john150@example.com', $user->email); // Mettre à jour l'e-mail attendu
+        $this->assertEquals('khalil', $user->name); 
+        $this->assertEquals('john150@example.com', $user->email); 
     }
 }
