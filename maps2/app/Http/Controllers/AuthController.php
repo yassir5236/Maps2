@@ -33,7 +33,11 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return response()->json(['message' => 'User registered successfully'], 201);
+        // return response()->json(['message' => 'User registered successfully'], 201);
+        return redirect()->route('user.home');
+
+        
+
     }
 
 

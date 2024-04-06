@@ -16,6 +16,14 @@ class UserController extends Controller
         return response()->json($users, 200);
     }
 
+      
+    public function homeUser()
+    {
+        return view('user.home');
+    }
+
+
+
   
     public function show($id)
     {

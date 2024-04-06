@@ -54,6 +54,13 @@ class ItineraryController extends Controller
         return response()->json(['message' => 'Itineraire cree avec succes'], 201);
     }
 
+
+
+   
+    
+    
+
+
     public function show($id)
     {
         $itineraire = Itinerary::find($id);

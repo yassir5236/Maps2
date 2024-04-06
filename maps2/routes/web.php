@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItineraryController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\VisitController;
-
+use App\Http\Controllers\StaticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/inscription', function () {
+    return view('Auth/creat_iteneraire');
+});
+
+// Route::get('/login', function () {
+//     return view('Auth/login');
+// });
+
+// Route::get('/register', function () {
+//     return view('Auth/register');
+
+
+
+
+
+// route static pages
+Route::get('/register', [StaticController::class, 'showRegister'])->name('showRegister');
+Route::get('/login', [StaticController::class, 'showLogin'])->name('showLogin');
+
+Route::get('/about', [StaticController::class, 'showAbout'])->name('about');
+Route::get('/contact', [StaticController::class, 'showContact'])->name('showContact');
+Route::get('/galery', [StaticController::class, 'showGalery'])->name('showGalery');
+Route::get('/', [StaticController::class, 'showWelcome'])->name('showWelcome');
+
+
+
+Route::get('/home', [UserController::class, 'homeUser'])->name('homeUser');
 
 
 
@@ -34,28 +61,4 @@ Route::get('/', function () {
 
 
 
-
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'store']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::put('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
-
-Route::get('/itineraries', [ItineraryController::class, 'index']);
-Route::post('/itineraries', [ItineraryController::class, 'store']);
-Route::get('/itineraries/{id}', [ItineraryController::class, 'show']);
-Route::put('/itineraries/{id}', [ItineraryController::class, 'update']);
-Route::delete('/itineraries/{id}', [ItineraryController::class, 'destroy']);
-
-Route::get('/destinations', [DestinationController::class, 'index']);
-Route::post('/destinations', [DestinationController::class, 'store']);
-Route::get('/destinations/{id}', [DestinationController::class, 'show']);
-Route::put('/destinations/{id}', [DestinationController::class, 'update']);
-Route::delete('/destinations/{id}', [DestinationController::class, 'destroy']);
-
-Route::get('/visits', [VisitController::class, 'index']);
-Route::post('/visits', [VisitController::class, 'store']);
-Route::get('/visits/{id}', [VisitController::class, 'show']);
-Route::put('/visits/{id}', [VisitController::class, 'update']);
-Route::delete('/visits/{id}', [VisitController::class, 'destroy']);
 
